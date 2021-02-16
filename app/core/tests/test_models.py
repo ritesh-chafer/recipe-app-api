@@ -35,7 +35,7 @@ class ModelTests(TestCase):
         """test creating a new user"""
         user = get_user_model().objects.create_superuser(
             'test@test.com',
-            'test@123'
+            'testpass123'
         )
 
         self.assertTrue(user.is_superuser)
@@ -47,3 +47,12 @@ class ModelTests(TestCase):
             user = sample_user(),
             name = 'Vegan '
         )
+
+    def test_ingredient_str(self):
+        """Test the ingredient string representation"""
+        ingredient = models.Ingredient.objects.create(
+            user = sample_user(),
+            name = 'cucumber'
+        )
+
+        self.assertEqual(str(ingredient), ingredient.name)
