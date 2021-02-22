@@ -5,7 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from core.models import Tag, Ingredient, Recipe
-
+from recipe.serializers import IngredientSerializer
 from recipe import serializers
 
 
@@ -75,3 +75,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return serializers.RecipeDetailSerializer
         return self.serializer_class
+
+    def perform_create(self):
+        """Create a new recipe"""
+        serializer.save(user=self.request.user)
